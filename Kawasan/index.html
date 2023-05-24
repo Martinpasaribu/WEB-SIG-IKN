@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        #map {
+            width: 1177px;
+            height: 856px;
+        }
+        </style>
+        <title></title>
+
+         <link href="../assets/css/solar-bootstrap.min.css" rel="stylesheet"/>
+    <link href="../assets/css/general.css" rel="stylesheet"/>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>  
+    <script src="../assets/tinymce/tinymce.min.js"></script> 
+    <script>
+        tinymce.init({
+        selector: "textarea.mce",
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            menubar : false,
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        });
+    </script>   
+    </head>
+<nav class="navbar navbar-default navbar-static-top" style="  background: #16222A;background: -webkit-linear-gradient(59deg, #6f887b, #16222A); background: linear-gradient(59deg, #6f887b, #6f887b, #16222A); ">
+       <header class="header bg-primary>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>  
+        </button>
+       
+        <a class="navbar-brand" href="index.php" style=" font-size: 39px; padding: 37px 53px 17px 296px;height: 95px;"   >Sistem Informasi Geografis <br/>  <br/> IKN Nusantara</a>
+        <img src="../IKN.png" style="width:99px;height:96px;border-radius: 66px; margin: 21px 6px  0px -624px">  
+        </div> 	
+      <div id="navbar" class="navbar-collapse collapse" style="padding: 45px  0px 33px 0px ;">
+        <ul class="nav navbar-nav" style="padding-left: 1110px">
+    
+          <li><a style="background-color: #fff;color:black;border-radius: 10px;padding: 9px 30px 9px 17px;margin: 5px px 5px 340px" href="../index.php"><span class="glyphicon glyphicon-home"></span><b> Kembali ke SIG</b></a></li>
+                
+        </ul>          
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header">
+<br/><br/>
+    <h1 align="center"> <b> Pembagian Kawasan  (IKN Nusantara)</b></h1>
+</div>
+<h3 align="justify" style="margin:2px 2px 2px 127px"> Wilayah Penting <b>IKN Nusantara</b></h3>
+
+<br/>
+<h4 align="justify" style="margin:2px 2px 2px 127px"> IKN direncanakan akan dibagi menjadi 3 Zonasi yaitu: <br/><br/>
+
+1. Kawasan Inti Pusat Pemerintahan dengan luas sekitar 5.600 Ha <br/>
+2. Kawasan Ibu Kota Negara dengan luas sekitar 56.000 Ha (termasuk kawasan inti Pusat Pemerintahan) <br/>
+3. Kawasan Perluasan Ibu Kota Negara dengan luas sekitar 256.142,74 Ha (Bappenas, 2020) <br/>
+4. Kawasan Ibu Kota Negara sendiri dibagian atas 6 Bagian Wilayah Perencanaan (BWP) yaitu: <br/>
+
+<br/><br/>
+  Menurut Kementerian Pekerjaan Umum dan Perumahan Rakyat (PUPR), Letak Geografir IKN :    </br>
+   </br></br><b> 1. 117°0'&nbsp BT dan 0°38' LS &nbspdi bagian utara </br> 2. 117°11' BT dan 1°15' LS di bagian selatan </br> 3. 116°31' BT dan 0°59' LS di bagian barat</br>  4. 117°18' BT dan 1°6' LS &nbsp di bagian timur. 
+   </b>
+ 
+
+
+<br/><br/>
+
+
+Menurut Menteri Pekerjaan Umum dan Perumahan Rakyat (PUPR) Basuki Hadimuljono memastikan pembangunan Ibu Kota Negara (IKN) </br> Nusantara sudah dimulai pada pertengahan tahun 2022. Semoga dengan pembangunan IKN ini bisa berdampak pada pemerataan pembangunan dan kesejahteraan di Indonesia.
+</h4>
+
+    <body>
+        <div id="map" style="position: relative;outline: none;margin: 200px 147px 2px;">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/PerluasanIbuKotaNegaraluas25614274Ha_1.js"></script>
+        <script src="data/IbuKotaNegaradenganluas56000Ha_2.js"></script>
+        <script src="data/IntiPusatPemerintahanluas5600Ha_3.js"></script>
+        <script src="data/titikwilayah_4.js"></script>
+        <script>
+
+
+
+
+
+
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:27, minZoom:1
+        }).fitBounds([[-1.2818547089296892,116.24052100146362],[-0.3500403328581285,117.52258410671429]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleMaps_0');
+        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleMaps_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 27,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleMaps_0;
+        map.addLayer(layer_GoogleMaps_0);
+        function pop_PerluasanIbuKotaNegaraluas25614274Ha_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">luas</th>\
+                        <td>' + (feature.properties['luas'] !== null ? autolinker.link(feature.properties['luas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KET</th>\
+                        <td>' + (feature.properties['KET'] !== null ? autolinker.link(feature.properties['KET'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PerluasanIbuKotaNegaraluas25614274Ha_1_0() {
+            return {
+                pane: 'pane_PerluasanIbuKotaNegaraluas25614274Ha_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(248,248,174,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PerluasanIbuKotaNegaraluas25614274Ha_1');
+        map.getPane('pane_PerluasanIbuKotaNegaraluas25614274Ha_1').style.zIndex = 401;
+        map.getPane('pane_PerluasanIbuKotaNegaraluas25614274Ha_1').style['mix-blend-mode'] = 'normal';
+        var layer_PerluasanIbuKotaNegaraluas25614274Ha_1 = new L.geoJson(json_PerluasanIbuKotaNegaraluas25614274Ha_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PerluasanIbuKotaNegaraluas25614274Ha_1',
+            layerName: 'layer_PerluasanIbuKotaNegaraluas25614274Ha_1',
+            pane: 'pane_PerluasanIbuKotaNegaraluas25614274Ha_1',
+            onEachFeature: pop_PerluasanIbuKotaNegaraluas25614274Ha_1,
+            style: style_PerluasanIbuKotaNegaraluas25614274Ha_1_0,
+        });
+        bounds_group.addLayer(layer_PerluasanIbuKotaNegaraluas25614274Ha_1);
+        map.addLayer(layer_PerluasanIbuKotaNegaraluas25614274Ha_1);
+        function pop_IbuKotaNegaradenganluas56000Ha_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BWP'] !== null ? autolinker.link(feature.properties['BWP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ROMAWI</th>\
+                        <td>' + (feature.properties['ROMAWI'] !== null ? autolinker.link(feature.properties['ROMAWI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KETERANGAN</th>\
+                        <td>' + (feature.properties['KETERANGAN'] !== null ? autolinker.link(feature.properties['KETERANGAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KETERANG_1</th>\
+                        <td>' + (feature.properties['KETERANG_1'] !== null ? autolinker.link(feature.properties['KETERANG_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LUAS_HA</th>\
+                        <td>' + (feature.properties['LUAS_HA'] !== null ? autolinker.link(feature.properties['LUAS_HA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gambar</th>\
+                        <td>' + (feature.properties['Gambar'] !== null ? autolinker.link(feature.properties['Gambar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IbuKotaNegaradenganluas56000Ha_2_0(feature) {
+            switch(String(feature.properties['KETERANGAN'])) {
+                case 'Pusat Ekonomi':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(177,14,213,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pusat Hiburan':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,220,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pusat Inovasi dan Riset':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,140,188,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pusat Kesehatan':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(15,139,83,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pusat Pemerintahan':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(138,27,47,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pusat Pendidikan':
+                    return {
+                pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(116,76,143,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_IbuKotaNegaradenganluas56000Ha_2');
+        map.getPane('pane_IbuKotaNegaradenganluas56000Ha_2').style.zIndex = 402;
+        map.getPane('pane_IbuKotaNegaradenganluas56000Ha_2').style['mix-blend-mode'] = 'normal';
+        var layer_IbuKotaNegaradenganluas56000Ha_2 = new L.geoJson(json_IbuKotaNegaradenganluas56000Ha_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_IbuKotaNegaradenganluas56000Ha_2',
+            layerName: 'layer_IbuKotaNegaradenganluas56000Ha_2',
+            pane: 'pane_IbuKotaNegaradenganluas56000Ha_2',
+            onEachFeature: pop_IbuKotaNegaradenganluas56000Ha_2,
+            style: style_IbuKotaNegaradenganluas56000Ha_2_0,
+        });
+        bounds_group.addLayer(layer_IbuKotaNegaradenganluas56000Ha_2);
+        map.addLayer(layer_IbuKotaNegaradenganluas56000Ha_2);
+        function pop_IntiPusatPemerintahanluas5600Ha_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['F_updt'] !== null ? autolinker.link(feature.properties['F_updt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kode_Prov</th>\
+                        <td>' + (feature.properties['Kode_Prov'] !== null ? autolinker.link(feature.properties['Kode_Prov'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fungsi_Kws</th>\
+                        <td>' + (feature.properties['Fungsi_Kws'] !== null ? autolinker.link(feature.properties['Fungsi_Kws'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KodeKwsNas</th>\
+                        <td>' + (feature.properties['KodeKwsNas'] !== null ? autolinker.link(feature.properties['KodeKwsNas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SK_PNJK</th>\
+                        <td>' + (feature.properties['SK_PNJK'] !== null ? autolinker.link(feature.properties['SK_PNJK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TGL_PNJK</th>\
+                        <td>' + (feature.properties['TGL_PNJK'] !== null ? autolinker.link(feature.properties['TGL_PNJK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LS_PNJK</th>\
+                        <td>' + (feature.properties['LS_PNJK'] !== null ? autolinker.link(feature.properties['LS_PNJK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No_Poligon</th>\
+                        <td>' + (feature.properties['No_Poligon'] !== null ? autolinker.link(feature.properties['No_Poligon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">luas</th>\
+                        <td>' + (feature.properties['luas'] !== null ? autolinker.link(feature.properties['luas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IntiPusatPemerintahanluas5600Ha_3_0() {
+            return {
+                pane: 'pane_IntiPusatPemerintahanluas5600Ha_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,231,37,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_IntiPusatPemerintahanluas5600Ha_3');
+        map.getPane('pane_IntiPusatPemerintahanluas5600Ha_3').style.zIndex = 403;
+        map.getPane('pane_IntiPusatPemerintahanluas5600Ha_3').style['mix-blend-mode'] = 'normal';
+        var layer_IntiPusatPemerintahanluas5600Ha_3 = new L.geoJson(json_IntiPusatPemerintahanluas5600Ha_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_IntiPusatPemerintahanluas5600Ha_3',
+            layerName: 'layer_IntiPusatPemerintahanluas5600Ha_3',
+            pane: 'pane_IntiPusatPemerintahanluas5600Ha_3',
+            onEachFeature: pop_IntiPusatPemerintahanluas5600Ha_3,
+            style: style_IntiPusatPemerintahanluas5600Ha_3_0,
+        });
+        bounds_group.addLayer(layer_IntiPusatPemerintahanluas5600Ha_3);
+        map.addLayer(layer_IntiPusatPemerintahanluas5600Ha_3);
+        function pop_titikwilayah_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nama</th>\
+                        <td>' + (feature.properties['nama'] !== null ? autolinker.link(feature.properties['nama'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">gambar</th>\
+                        <td>' + (feature.properties['gambar'] !== null ? '<img src="images/' + String(feature.properties['gambar']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_titikwilayah_4_0() {
+            return {
+                pane: 'pane_titikwilayah_4',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/accommodation_bed_and_breakfast.svg',
+            iconSize: [16.72, 16.72]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_titikwilayah_4');
+        map.getPane('pane_titikwilayah_4').style.zIndex = 404;
+        map.getPane('pane_titikwilayah_4').style['mix-blend-mode'] = 'normal';
+        var layer_titikwilayah_4 = new L.geoJson(json_titikwilayah_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_titikwilayah_4',
+            layerName: 'layer_titikwilayah_4',
+            pane: 'pane_titikwilayah_4',
+            onEachFeature: pop_titikwilayah_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_titikwilayah_4_0(feature));
+            },
+        });
+        var cluster_titikwilayah_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_titikwilayah_4.addLayer(layer_titikwilayah_4);
+
+        bounds_group.addLayer(layer_titikwilayah_4);
+        cluster_titikwilayah_4.addTo(map);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/titikwilayah_4.png" /> titik wilayah': cluster_titikwilayah_4,'<img src="legend/IntiPusatPemerintahanluas5600Ha_3.png" /> Inti Pusat Pemerintahan luas 5.600 Ha': layer_IntiPusatPemerintahanluas5600Ha_3,'Ibu Kota Negara dengan luas 56.000 Ha<br /><table><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatEkonomi0.png" /></td><td>Pusat Ekonomi</td></tr><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatHiburan1.png" /></td><td>Pusat Hiburan</td></tr><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatInovasidanRiset2.png" /></td><td>Pusat Inovasi dan Riset</td></tr><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatKesehatan3.png" /></td><td>Pusat Kesehatan</td></tr><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatPemerintahan4.png" /></td><td>Pusat Pemerintahan</td></tr><tr><td style="text-align: center;"><img src="legend/IbuKotaNegaradenganluas56000Ha_2_PusatPendidikan5.png" /></td><td>Pusat Pendidikan</td></tr></table>': layer_IbuKotaNegaradenganluas56000Ha_2,'<img src="legend/PerluasanIbuKotaNegaraluas25614274Ha_1.png" />  Perluasan Ibu Kota Negara luas 256.142,74 Ha': layer_PerluasanIbuKotaNegaraluas25614274Ha_1,"Google Maps": layer_GoogleMaps_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_titikwilayah_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['nama'] !== null?String('<div style="color: #30123b; font-size: 10pt; font-weight: bold; font-family: \'Segoe Print\', sans-serif;">' + layer.feature.properties['nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_titikwilayah_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: cluster_titikwilayah_4,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'nama'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"KETERANGAN": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_titikwilayah_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['nama'] !== null?String('<div style="color: #30123b; font-size: 10pt; font-weight: bold; font-family: \'Segoe Print\', sans-serif;">' + layer.feature.properties['nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_titikwilayah_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KETERANGAN = document.createElement('div');
+            div_KETERANGAN.id = "div_KETERANGAN";
+            div_KETERANGAN.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KETERANGAN);
+            sel_KETERANGAN = document.createElement('select');
+            sel_KETERANGAN.multiple = true;
+            sel_KETERANGAN.size = 6;
+            sel_KETERANGAN.id = "sel_KETERANGAN";
+            var KETERANGAN_options_str = "<option value='' unselected></option>";
+            sel_KETERANGAN.onchange = function(){filterFunc()};
+            KETERANGAN_options_str  += '<option value="Pusat Ekonomi">Pusat Ekonomi</option>';
+            KETERANGAN_options_str  += '<option value="Pusat Hiburan">Pusat Hiburan</option>';
+            KETERANGAN_options_str  += '<option value="Pusat Inovasi dan Riset">Pusat Inovasi dan Riset</option>';
+            KETERANGAN_options_str  += '<option value="Pusat Kesehatan">Pusat Kesehatan</option>';
+            KETERANGAN_options_str  += '<option value="Pusat Pemerintahan">Pusat Pemerintahan</option>';
+            KETERANGAN_options_str  += '<option value="Pusat Pendidikan">Pusat Pendidikan</option>';
+            sel_KETERANGAN.innerHTML = KETERANGAN_options_str;
+            div_KETERANGAN.appendChild(sel_KETERANGAN);
+            var lab_KETERANGAN = document.createElement('div');
+            lab_KETERANGAN.innerHTML = 'PEMBAGIAN KAWASAN';
+            lab_KETERANGAN.className = 'filterlabel';
+            div_KETERANGAN.appendChild(lab_KETERANGAN);
+            var reset_KETERANGAN = document.createElement('div');
+            reset_KETERANGAN.innerHTML = 'Hapus Perubahan';
+            reset_KETERANGAN.className = 'filterlabel';
+            reset_KETERANGAN.onclick = function() {
+                var options = document.getElementById("sel_KETERANGAN").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KETERANGAN.appendChild(reset_KETERANGAN);
+        resetLabels([layer_titikwilayah_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_titikwilayah_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_titikwilayah_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_titikwilayah_4]);
+        });
+        </script>
+    </body>
+
+    <footer class="footer bg-primary"  style="  background: #16222A;background: -webkit-linear-gradient(59deg, #6f887b, #16222A); background: linear-gradient(59deg, #6f887b, #6f887b, #16222A);     margin: 45px 23px -430px 1px;   height: 220px;">
+		<div class="footer-middle">
+		<div class="container" style="color:#fff">
+		  <div class="row">
+			<div class="col-md-3 col-sm-6">
+			  <!--Column1-->
+			  <div class="footer-pad">
+				<h4>Helpdesk</h4>
+				<ul class="list-unstyled"  >
+				  <li ><a href="#"></a></li>
+				  <li ><a href="#" style="color:#fff" >Payment Center</a></li>
+				  <li><a href="#" style="color:#fff">Contact Directory</a></li>
+				  <li><a href="#" style="color:#fff">Forms</a></li>
+				  <li><a href="#" style="color:#fff">News and Updates</a></li>
+				  <li><a href="#" style="color:#fff">FAQs</a></li>
+				</ul>
+			  </div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+			  <!--Column1-->
+			  <div class="footer-pad">
+				<h4>Beranda</h4>
+				<ul class="list-unstyled">
+				  <li><a href="#" style="color:#fff" >Sekilas IKN</a></li>
+				  <li><a href="#" style="color:#fff">Struktur Organisasi</a></li>
+				  <li><a href="#" style="color:#fff">Kontak Kami</a></li>
+				  <li><a href="#" style="color:#fff">Karier</a></li>
+				  <li><a href="#" style="color:#fff">Gallery</a></li>
+				</ul>
+			  </div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+			  <!--Column1-->
+			  <div class="footer-pad">
+				<h4>Tentang</h4>
+				<ul class="list-unstyled">
+				  <li><a href="#" style="color:#fff">Beranda</a></li>
+				  <li><a href="#" style="color:#fff">Tentang IKN NUSANTARA</a></li>
+				  <li><a href="#" style="color:#fff">Peta Sebaran</a></li>
+				  <li><a href="#" style="color:#fff">Peta Kawasan</a></li>
+				  <li><a href="#" style="color:#fff">Mayor and City Council</a></li>
+				  <li>
+					<a href="#"></a>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="col-md-3">
+			  <h4>Kontak Kami</h4>
+				  <ul class="social-network social-circle">
+				   <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+				   <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+				   <li><a href="#" class="icoInstagram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+				   <li><a href="#" class="icoYoutube" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+				</ul>       
+		  </div>
+		  </div>
+		<div class="row">
+		  <div class="col-md-12 copy">
+			<p class="text-center">&copy; Copyright 2023 - IKN NUSANTARA.  All rights reserved.</p>
+		  </div>
+		</div>
+	
+		</div>
+		</div>
+	  </footer>
+
+</html>
