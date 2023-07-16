@@ -1,9 +1,17 @@
 <?php
 
+session_start();
+ob_start();
 include 'functions.php';
-// if(empty($_SESSION['user']))
-//     header("location:index.php");
+include 'config.php'; 
+
+if(!isset($_SESSION['session_username'])){
+    header("location:index.php?m=login");
+    exit();
+    
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -17,13 +25,14 @@ include 'functions.php';
     <link rel="icon" href="favicon.ico"/>
     <link rel="canonical" href="https://sarjanakomedi.com/" />
 
-    <title>Sistem Informasi Geografis IKN Nusantara</title>
+    <title>Sistem Informasi Geografis Kebun Raya ITERA</title>
     <link href="assets/css/solar-bootstrap.min.css" rel="stylesheet"/>
     <link href="assets/css/general.css" rel="stylesheet"/>
     <!-- <link href="assets/css/style.css" rel="stylesheet"/> -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>  
     <script src="assets/tinymce/tinymce.min.js"></script> 
+    <link href="assets/css/style.css" rel="stylesheet"/>
     <script>
         tinymce.init({
         selector: "textarea.mce",
@@ -36,7 +45,7 @@ include 'functions.php';
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
     </script>   
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXD8UintJ5MRGgperWdwiFhFKPjvZ7FD8"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5s8H1Xoj_p0pvENCFFZPUKLp3p8agntY"></script>
     <script>
         var default_lat = <?=get_option('default_lat')?>; 
         var default_lng = <?=get_option('default_lng')?>;
@@ -45,58 +54,83 @@ include 'functions.php';
     <script src="assets/js/script.js"></script>
   </head>
   <body>
-  <nav class="navbar navbar-default navbar-static-top" style="  background: #16222A;background: -webkit-linear-gradient(59deg, #6f887b, #16222A); background: linear-gradient(59deg, #6f887b, #6f887b, #16222A); ">
-     <header class="header bg-primary>
-      <div class="container">
-        <div class="navbar-header">
+    <nav class="navbar navbar-default navbar-static-top" style="  background: #16222A;background: -webkit-linear-gradient(59deg, #6f887b, #16222A); background: linear-gradient(59deg, #6f887b, #6f887b, #16222A); ">
+     
+    
+
+
+
+  
+      <div class="container" >
+        <header class="header">
+
+        <div class="grid-container">
+
+  
+  <div class="item2"></div>
+  <div class="item3">Sistem Informasi Geografis Kebun Raya ITERA </div>  
+  <div class="item4"> </div>
+  <div class="item5">
+  <div id="navbar" class="navbar-collapse collapse" >
+    
+  <div class="nav1">
+          <ul class="nav navbar-nav">
+            
+            <?php if($_SESSION['session_username']):?>
+              <div class="dropdown">
+  <button class="dropbtn">Tempat</button>
+  <div class="dropdown-content">
+            <li><a href="?m=tempat"><span class="glyphicon glyphicon-home"></span><b> Tempat</b></a></li>
+            <li><a href="?m=fasilitas"><span class="glyphicon glyphicon-home"></span><b> Fasilitas</b></a></li>
+  </div>
+  </div>
+
+            <li><a href="?m=galeri"><span class="glyphicon glyphicon-picture"></span><b> Galeri</b></a></li>            
+            <li><a href="?m=password"><span class="glyphicon glyphicon-lock"></span><b> Password</b></a></li>
+            <li><a href="au.php"><span class="glyphicon glyphicon-list-alt"></span><b> Berita</b></a></li>
+            <li><a href="aksi.php?act=logout"><span class="glyphicon glyphicon-log-out"></span><b> Logout</b></a></li>
+            <?php else:?>     
+
+
+
+            
+            
+            <?php endif ?>                   
+          </ul>          
+          </div>
+        </div>
+  </div>
+  </div> 
+      <div class="tombolku">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-         
-          <a class="navbar-brand" href="admin.php" style=" font-size: 39px; padding: 37px 53px 17px 296px;height: 95px;"   >Sistem Informasi Geografis <br/>  <br/> IKN Nusantara</a>
-          <img src="IKN.png" style="width:99px;height:96px;border-radius: 66px; margin: 21px 6px  0px -624px">  
-           </div> 	
-        <div id="navbar" class="navbar-collapse collapse" style="padding: 45px  0px 0px 0px ;">
-          <ul class="nav navbar-nav" style="padding-left: 1110px">
-            <?php if($_SESSION['login']):?>
-            <li><a href="?m=tempat"><span class="glyphicon glyphicon-home"></span><b> Tempat</b></a></li>
-            <li><a href="?m=galeri"><span class="glyphicon glyphicon-picture"></span><b> Galeri</b></a></li>            
-            <li><a href="?m=password"><span class="glyphicon glyphicon-lock"></span><b> Password</b></a></li>
-            <li><a href="?m=au"><span class="glyphicon glyphicon-news"></span><b> Berita</b></a></li>
-            <li><a href="aksi.php?act=logout"><span class="glyphicon glyphicon-log-out"></span><b> Logout</b></a></li>
-            <?php else:?>            
-            <li><a style="background-color: #fff;color:black;padding:5px 25px 5px 5px;margin:5px 25px 5px 5px" href="?m=tempat_list"><span class="glyphicon glyphicon-home"></span><b> Peta Kawasan</b></a></li>
-            <li><a style="background-color: #fff;color:black;padding:5px 25px 5px 5px;margin:5px 25px 5px 5px" href="qgis.php"><span class="glyphicon glyphicon-map-marker"></span><b> Peta Persebaran</b></a></li>
-            <li><a style="background-color: #fff;color:black;padding:5px 25px 5px 5px;margin:5px 25px 5px 5px" href="?m=news2"><span class="glyphicon glyphicon-map-marker"></span><b> News</b></a></li>
-            <li><a style="background-color: #fff;color:black;padding:5px 5px 5px 5px ;margin:5px 25px 5px 5px"  href="?m=login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-            <?php endif?>                   
-          </ul>          
-        </div>
       </div>
+    </header>
+    </div>
     </nav>
 
 
-
-    <div class="container">
+    <div class="container" style='padding-top: 122px;'>
+    <div class="adm">
     <?php
         if(file_exists($mod.'.php'))
             include $mod.'.php';
         else
             include 'admin2.php';
+            
     ?>
+    </div>
     </div>
 
 </body>
-<footer class="footer bg-primary"  style="  background: #16222A;background: -webkit-linear-gradient(59deg, #6f887b, #16222A); background: linear-gradient(59deg, #6f887b, #6f887b, #16222A);     margin: 45px 23px -158px 1px;   height: 230px;">
-		<div class="footer-middle">
-		<div class="container" style="color:#fff">
-		  <div class="row">
-			<div class="col-md-3 col-sm-6">
+  <footer>
+<div class="foot">
 			  <!--Column1-->
-			  <div class="footer-pad">
+			  <div class="bawah1">
 				<h4>Helpdesk</h4>
 				<ul class="list-unstyled"  >
 				  <li ><a href="#"></a></li>
@@ -107,10 +141,8 @@ include 'functions.php';
 				  <li><a href="#" style="color:#fff">FAQs</a></li>
 				</ul>
 			  </div>
-			</div>
-			<div class="col-md-3 col-sm-6">
 			  <!--Column1-->
-			  <div class="footer-pad">
+			  <div class="bawah2">
 				<h4>Beranda</h4>
 				<ul class="list-unstyled">
 				  <li><a href="#" style="color:#fff" >Sekilas IKN</a></li>
@@ -120,10 +152,10 @@ include 'functions.php';
 				  <li><a href="#" style="color:#fff">Gallery</a></li>
 				</ul>
 			  </div>
-			</div>
-			<div class="col-md-3 col-sm-6">
+			
+	
 			  <!--Column1-->
-			  <div class="footer-pad">
+			  <div class="bawah3">
 				<h4>Tentang</h4>
 				<ul class="list-unstyled">
 				  <li><a href="#" style="color:#fff">Beranda</a></li>
@@ -136,8 +168,8 @@ include 'functions.php';
 				  </li>
 				</ul>
 			  </div>
-			</div>
-			<div class="col-md-3">
+		
+			<div class="bawah4">
 			  <h4>Kontak Kami</h4>
 				  <ul class="social-network social-circle">
 				   <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -146,14 +178,16 @@ include 'functions.php';
 				   <li><a href="#" class="icoYoutube" title="Youtube"><i class="fa fa-youtube"></i></a></li>
 				</ul>       
 		  </div>
-		  </div>
-		<div class="row">
-		  <div class="col-md-12 copy">
+
+    <div class="bawah5">
+		<div class="ro">
 			<p class="text-center">&copy; Copyright 2023 - IKN NUSANTARA.  All rights reserved.</p>
-		  </div>
-		</div>
+      <p > -----------------------------------------------------------------------------------</p>
+		  
+	 </div>
 	
-		</div>
-		</div>
-	  </footer>
-</html>
+	</div>
+    </footer>
+
+
+    </html>

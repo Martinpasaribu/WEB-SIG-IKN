@@ -1,10 +1,24 @@
+<?php
+
+session_start();
+ob_start();
+
+include 'config.php'; 
+
+if(!isset($_SESSION['session_username'])){
+    header("location:index.php?m=login");
+    exit();
+    
+}
+?>
+
 <div class="page-header">
     <h1>Tambah Tempat</h1>
 </div>
 <form method="post" action="?m=tempat_tambah" enctype="multipart/form-data">    
     <div class="row">
         <div class="col-sm-6">
-            <?php if($_POST) include'aksi.php'?>
+            <?php if($_POST) include 'aksi.php'?>
             <div class="form-group">
                 <label>Nama Tempat <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="nama_tempat" value="<?=$_POST['nama_tempat']?>"/>

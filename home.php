@@ -3,38 +3,47 @@
 <br>
 
 <div class="page-header">
-    <h1 align="center"><b>Sistem Informasi Geografis IKN Nusantara</b></h1>
-    <h2 algin="center" style="font-family:Segoe Script;text-align: center;"; algin="center"> Smart, Metropolis, dan Modern </h2>
+    <div class="buat">
+    <div class="kotak">
+    <h1><b>Sistem Informasi Geografis Kebun Raya ITERA</b></h1>
+    <h2> Smart, friendly, dan forrest campus </h2>
+    </div>
+    </div>
 </div>
+<div class="buat">
+    <div class="kotak">
 
-
-<h1> ================================================================ </>
+<h1> =========================================================== </>
 
 
 
 <video playsinline autoplay muted loop play-button controls="false" width="1140" height="940" display="block" >
 
 
-      <source src="https://drive.google.com/uc?export=download&id=1BkZ8_qEN_0SYIjHWNms3vORGNInKsYk3" type='video/mp4; '>
- 
+      <source src="https://drive.google.com/uc?export=download&id=1j0pPlMNDHbZ6de5fC-sIkL-m-fr67ffd" type='video/mp4; '>
+    
       
     </video>
 
 
 
 <div class="gallery" style="margin: 60px -90px 186px -93px;">
-		  <img src="foto-1.jpg" alt="Gallery Image 1" wight="150px" height="200px">
-		  <img src="foto-2.jpeg" alt="Gallery Image 2" wight="150px" height="200px">
-		  <img src="foto-3.jpg" alt="Gallery Image 3" wight="150px" height="200px">
-		  <img src="foto-4.jpg" alt="Gallery Image 4" wight="150px" height="200px">
+		  <img src="img/pintumasuk.jpg" alt="Gallery Image 1" wight="150px" height="200px">
+		  <img src="img/rumakaca2.jpg" alt="Gallery Image 2" wight="150px" height="200px">
+		  <img src="img/labirin.jpg" alt="Gallery Image 3" wight="150px" height="200px">
+		  <img src="img/pulaus.jpeg" alt="Gallery Image 4" wight="150px" height="200px">
 </div>
 
-
-<h3 align="justify" style="margin-top:-92px"> Selamat Datang Di Website SIG <b>IKN Nusantara</b>, Project Sistem Informasi Geografis berbasis WEB ini saya buat guna untuk mengerjakan <b> UAS</b> Jurusan <b>Teknik Informatika</b>. Adapun untuk tempat atau titik-titik lokasi yang saya buat pada project ini adalah lokasi Kawasan Inti IKN Nusantara. Mudah-mudahan project ini dapat diterima dengan baik dan apabila masih banyak kekurangan saya mohon maaf, sekian terima kasih.</h3>
+<h3 align="justify" style="margin-top:-92px"> Selamat Datang Di Website Sistem Informasi Geografis <b> Kebun Raya Institut Teknologi Sumatera</b>. Sebagai perguruan tinggi yang mengusung konsep forest campus, Institut Teknologi Sumatera (ITERA) mengembangkan Kebun Raya ITERA yang lokasiya berada di lingkungan kampus. Kebun raya ITERA yang kini sedang melakukan pembangunan tahap I tersebut diproyeksikan menjadi pusat konservasi tumbuhan khas Pulau Sumatera dan Indonesia serta menjadi pusat penelitian berbagai jenis tumbuhan.
+Saat ini, Kebun Raya ITERA yang berdiri di atas lahan seluas 75,52 hektare, sudah memiliki beberapa fasilitas pendukung konservasi tumbuhan, seperti rumah kaca pembibitan, paranet pembibitan, kantor dan gudang pembibitan serta fasilitas pendukung seperti gerbang dan akses jalan. Kebun Raya ITERA juga sudah memiliki 11.315 tanaman penghijauan yang terdiri dari 109 jenis tanaman, serta 232 tanaman koleksi yang terdiri dari 49 famili, sumbangan Kebun Raya Bogor. Tanaman koleksi di Kebun Raya ITERA merupakan tanaman khas kebun raya, yakni tanaman yang memiliki identitas dan terdokumentasi, serta beberapa tanaman langka seperti teratai raksasa (Victoria amazonica), tanaman baobab (Adansonia digitata).
+Selain koleksi tumbuhan Kebun Raya ITERA juga sudah memiliki fasilitas embung yang di tengah-tengahnya memiliki pulau buatan berbentuk Pulau Sumatera, dan labirin yang menjadi daya tarik tersendiri di Kebun Raya ITERA. Labirin yang kini sudah ditanami tanaman pembatas, nantinya akan menjadi wahana rekreasi menelusuri jalan rumit dengan pembatas tumbuhan, hingga pengunjung menemukan jalan keluar. Labirin yang sudah dibangun adalah satu dari tiga labirin yang akan ada di Kebun Raya ITERA. Meski belum dapat maksimal menjadi labirin, karena tanaman yang belum memenuhi tinggi minimal, akan tetapi secara estetika sudah cukup menarik untuk dijadikan tempat berfoto pengunjung.
+Ke depan, Kebun Raya ITERA masih akan banyak membangun fasilitas lain yang mendukung fungsi sebuah kebun raya yakni menjadi tempat konservasi,penelitian,pendidikan, wisata dan jasa lingkungan. Seperti mengembangkan fasilitas perkantoran, pusat informasi kebun raya, penambahan rumah kaca untuk jenis-jenis tanaman khusus seperti anggrek, serta akan dibangun museum etnobotani sebagai tempat menampilkan tanaman-tanaman khusus yang memiliki nilai budaya. </h3>
 <br>
 <br>
 <br>
 <br>
+</div>
+</div>
 
 <h2 align="center" style="font-family:Monotype Corsiva;font-size:42px;"><b> Progress on the Sustainable Development Goals </b> </h2>
 </br></br>

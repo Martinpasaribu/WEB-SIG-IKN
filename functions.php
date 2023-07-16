@@ -25,17 +25,7 @@ function get_tempat_option($selected = ''){
     return $a;
 }
 
-function get_siswa_option($selected = ''){
-    global $db;
-    $rows = $db->get_results("SELECT nis, nama_siswa FROM tb_siswa ORDER BY nis");
-    foreach($rows as $row){
-        if($row->nis==$selected)
-            $a.="<option value='$row->nis' selected>$row->nis - $row->nama_siswa</option>";
-        else
-            $a.="<option value='$row->nis'>$row->nis - $row->nama_siswa</option>";
-    }
-    return $a;
-}
+
 
 function parse_file_name($file_name){
     $x = strtolower($file_name);    

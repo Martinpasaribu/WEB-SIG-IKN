@@ -70,8 +70,10 @@ $row = $db->get_row("SELECT * FROM tb_tempat WHERE id_tempat='$_GET[ID]'");
 <script>
 
 var origin_pos  = {
-    lat : -3.25851,
-    lng : 102.85051
+
+lat : -5.368473425089913, 
+lng :  105.31152589806345
+
 };
 var dst_pos = {
         lat : <?=$row->lat?>,
@@ -88,7 +90,7 @@ function tampilDetail(){
     
     
     map_detail = new google.maps.Map(document.getElementById('map'), {
-        zoom: default_zoom,
+        zoom:  16.5,
         center: dst_pos
     });  
     

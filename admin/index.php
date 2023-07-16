@@ -1,8 +1,19 @@
+<?php
 
+session_start();
+ob_start();
+
+if(!isset($_SESSION['session_username'])){
+    header("location:kb/admin/index.php?halaman=kategori");
+    // http://localhost/kb/admin/index.php?halaman=kategori
+    exit();
+    
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Halaman Adminstrartor</title>
+    <title>Kelolah Berita</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
@@ -11,7 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background: linear-gradient(59deg, #6f887b, #6f887b, #16222A);">
     <!-- Brand -->
     <?php
         include '../config.php';
@@ -31,10 +42,11 @@
    
 </nav>
 <div class="jumbotron text-center">
+    <h1> ---------------------- </h1>
 <?php 
 if(isset($_GET['halaman']) && !isset($_GET['kategori'])){
     $halaman = $_GET['halaman'];
-   echo "<h1>".ucwords($halaman)."</h1>";
+   echo "<h1>".'Kelolah Berita'."</h1>";
 }
 
 if(isset($_GET['halaman']) &&  isset($_GET['kategori'])){
@@ -69,7 +81,7 @@ if(isset($_GET['halaman']) &&  isset($_GET['kategori'])){
                         include "artikel/index.php";
                         break;
                     case 'komentar':
-                        include "../komentar/index.php";
+                        include "komentar/index.php";
                         break;
                     case 'admin':
                         include "admin/index.php";

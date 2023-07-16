@@ -1,5 +1,19 @@
+<?php
+
+// session_start();
+// ob_start();
+
+// include 'config.php'; 
+
+// if(!isset($_SESSION['session_username'])){
+//     header("location:index.php?m=login");
+//     exit();
+    
+// }
+?>
+
 <div class="page-header">
-    <h1>BARBERSHOP DI KOTA LUBUKLINGGAU</h1>
+    <h1> Tanaman Di Kebun Raya ITERA</h1>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">        
@@ -21,7 +35,7 @@
                 <th>Nama Tempat</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
-                <th>Lokasi</th>
+                <th>Asal Tanaman</th>
                 <th>Aksi</th>
             </tr>
         </thead>

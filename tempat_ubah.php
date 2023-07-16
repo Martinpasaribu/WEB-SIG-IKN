@@ -1,16 +1,28 @@
+
+
 <?php
-    $row = $db->get_row("SELECT * FROM tb_tempat WHERE id_tempat='$_GET[ID]'"); 
+ $row = $db->get_row("SELECT * FROM tb_tempat WHERE id_tempat='$_GET[ID]'"); 
+session_start();
+ob_start();
+
+include 'config.php'; 
+
+if(!isset($_SESSION['session_username'])){
+    header("location:index.php?m=login");
+    exit();
+    
+}
 ?>
 <div class="page-header">
-    <h1>Ubah Tempat</h1>
+    <h1>Ubah Data Tanaman</h1>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        <?php if($_POST) include'aksi.php'?>
+        <?php if($_POST) include 'aksi.php'?>
         <form method="post" action="?m=tempat_ubah&ID=<?=$row->id_tempat?>" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nama Tempat <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="nama_tempat" value="<?=$row->nama_tempat?>"/>
+                <input class="form-control" type="text" name="nama_tempat" value="<?=$row->nama_tempat?>" required>
             </div>
             <div class="form-group">
                 <label>Gambar <span class="text-danger">*</span></label>
@@ -20,19 +32,19 @@
             </div>
             <div class="form-group">
                 <label>Latitude <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" id="lat" name="lat" value="<?=$row->lat?>"/>
+                <input class="form-control" type="text" id="lat" name="lat" value="<?=$row->lat?>"  required>
             </div>
             <div class="form-group">
                 <label>Longitude <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" id="lng" name="lng" value="<?=$row->lng?>"/>
+                <input class="form-control" type="text" id="lng" name="lng" value="<?=$row->lng?>"  required>
             </div>
             <div class="form-group">
                 <label>Lokasi <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="lokasi" value="<?=$row->lokasi?>"/>
+                <input class="form-control" type="text" name="lokasi" value="<?=$row->lokasi?>"  required>
             </div>
             <div class="form-group">
                 <label>Keterangan</label>
-                <textarea class="mce" name="keterangan"><?=$row->keterangan?></textarea>
+                <textarea class="mce" name="keterangan" ><?=$row->keterangan?></textarea>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Simpan</button>
@@ -46,13 +58,13 @@
 </div>
 <script>
 var defaultCenter = {
-    lat : -3.25851, 
-    lng : 102.85051
+    lat : -5.368473425089913, 
+    lng :  105.31152589806345
 };
 function initMap() {
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: <?=get_option('default_zoom')?>,
+    zoom: 16.5,
     center: defaultCenter 
   });
 

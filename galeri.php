@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>BARBERSHOP</h1>
+    <h1> Galeri Foto</h1>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">        

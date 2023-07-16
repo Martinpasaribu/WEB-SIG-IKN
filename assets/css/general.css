@@ -82,8 +82,14 @@ body {
     background-color: #3B5998;
   }
   
-  .social-network a.icoLinkedin:hover {
+  /* .social-network a.icoLinkedin:hover {
     background-color: #007bb7;
+  
+  } */
+
+  .social-network a.icoLinkedin{
+   background-image: url(IKN.png);
+  
   }
   
   .social-network a.icoFacebook:hover i,

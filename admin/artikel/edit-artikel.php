@@ -1,10 +1,12 @@
 
 <?php
 session_start();
+
+
     if (isset($_POST['update_artikel'])) {
         //Include file koneksi, untuk koneksikan ke database
        
-        
+        include "config.php";
         //Fungsi untuk mencegah inputan karakter yang tidak sesuai
         function input($data) {
             $data = trim($data);
